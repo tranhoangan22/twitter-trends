@@ -4,6 +4,7 @@ const morgan = require("morgan");
 require("dotenv").config();
 // const cors = require("cors");
 const enforce = require("express-sslify"); // used to enforces HTTPS connections on any incoming GET and HEAD requests
+const compression = require("compression");
 
 const app = express();
 app.use(express.json());
