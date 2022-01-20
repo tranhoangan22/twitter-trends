@@ -4,8 +4,6 @@ import { FaCrosshairs } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-import Trends from "./Trends";
-
 const App = () => {
   const [trends, setTrends] = useState([]);
   const [woeid, setWoeid] = useState("1");
@@ -50,20 +48,20 @@ const App = () => {
     }
   };
 
-  // const listTrends = (trends = []) => {
-  //   return (
-  //     <ul>
-  //       {trends.map((trend, index) => (
-  //         <li key={index}>
-  //           <a href={trend.url}>{trend.name}</a>
-  //           {trend.tweet_volume && (
-  //             <span className="tweet_volume">{trend.tweet_volume}</span>
-  //           )}
-  //         </li>
-  //       ))}
-  //     </ul>
-  //   );
-  // };
+  const listTrends = (trends) => {
+    return (
+      <ul>
+        {trends.map((trend, index) => (
+          <li key={index}>
+            <a href={trend.url}>{trend.name}</a>
+            {trend.tweet_volume && (
+              <span className="tweet_volume">{trend.tweet_volume}</span>
+            )}
+          </li>
+        ))}
+      </ul>
+    );
+  };
 
   return (
     <div className="App">
@@ -85,9 +83,7 @@ const App = () => {
           <FaCrosshairs />
         </div>
       </div>
-      <div className="content">
-        <Trends trends={trends} />
-      </div>
+      <div className="content">{listTrends(trends)}</div>
     </div>
   );
 };
