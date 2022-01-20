@@ -17,20 +17,6 @@ app.use(morgan("dev"));
 //   res.send({ message: "Awesome it works 🐻" });
 // });
 
-app.use("/api", require("./routes/api.route"));
-
-app.use((req, res, next) => {
-  next(createError.NotFound());
-});
-
-app.use((err, req, res, next) => {
-  res.status(err.status || 500);
-  res.send({
-    status: err.status || 500,
-    message: err.message,
-  });
-});
-
 /**
  * So our API call from the client side (port 3000) can be proxy-ed to backend (defined in this app.js file)
  * Another way to do this is to define the proxy property in package.json => what we're doing
@@ -60,6 +46,25 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.join(__dirname, "frontend/build", "index.html"));
   });
 }
+
+// Whenever an app tries to load a service worker, it will be looking for a service-worker.js file
+app.get("/service-worker.js", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "..", "build", "service-worker.js"));
+});
+
+app.use("/api", require("./routes/api.route"));
+
+app.use((req, res, next) => {
+  next(createError.NotFound());
+});
+
+app.use((err, req, res, next) => {
+  res.status(err.status || 500);
+  res.send({
+    status: err.status || 500,
+    message: err.message,
+  });
+});
 
 const PORT = process.env.PORT || 4000;
 
