@@ -48,7 +48,7 @@ const App = () => {
     }
   };
 
-  const listTrends = (trends) => {
+  const listTrends = (trends = []) => {
     return (
       <ul>
         {trends.map((trend, index) => (
