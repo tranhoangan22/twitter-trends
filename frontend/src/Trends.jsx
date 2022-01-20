@@ -1,6 +1,6 @@
 import "./App.css";
 
-const Trends = ({ trends }) => {
+const Trends = ({ trends = [] }) => {
   return (
     <ul>
       {trends.map((trend, index) => (
