@@ -2,7 +2,7 @@ const express = require("express");
 const createError = require("http-errors");
 const morgan = require("morgan");
 require("dotenv").config();
-// const cors = require("cors");
+const cors = require("cors");
 const enforce = require("express-sslify"); // used to enforces HTTPS connections on any incoming GET and HEAD requests
 const path = require("path");
 const compression = require("compression");
@@ -35,12 +35,12 @@ app.use((err, req, res, next) => {
  * So our API call from the client side (port 3000) can be proxy-ed to backend (defined in this app.js file)
  * Another way to do this is to define the proxy property in package.json => what we're doing
  * */
-// const corsOptions = {
-//   origin: "http://localhost:3000",
-//   credentials: true, //access-control-allow-credentials:true
-//   optionSuccessStatus: 200,
-// };
-// app.use(cors(corsOptions));
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
 
 // Serving static files in Express, in Production
 if (process.env.NODE_ENV === "production") {
