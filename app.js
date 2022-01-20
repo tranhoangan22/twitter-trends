@@ -12,9 +12,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan("dev"));
 
-app.get("/", async (req, res, next) => {
-  res.send({ message: "Awesome it works 🐻" });
-});
+// the 3 lines below are commented because we want to return the frontend and not backend upon user request (line 59)
+// app.get("/", async (req, res, next) => {
+//   res.send({ message: "Awesome it works 🐻" });
+// });
 
 app.use("/api", require("./routes/api.route"));
 
