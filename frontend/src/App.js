@@ -48,7 +48,7 @@ const App = () => {
     }
   };
 
-  const listTrends = () => {
+  const listTrends = (trends) => {
     return (
       <ul>
         {trends.map((trend, index) => (
@@ -83,7 +83,7 @@ const App = () => {
           <FaCrosshairs />
         </div>
       </div>
-      <div className="content">{listTrends()}</div>
+      <div className="content">{listTrends(trends)}</div>
     </div>
   );
 };
