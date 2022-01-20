@@ -1,0 +1,121 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #14171a;
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: #f5f8fa;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+:root {
+  --primary-color: #1da1f2;
+}
+
+select {
+  margin: 16px;
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 999px;
+  border-color: #aab8c2;
+  border-width: 2px;
+}
+
+li {
+  display: inline-block;
+  list-style-type: none;
+  background-color: #f5f8fa;
+  padding: 8px 16px;
+  margin: 8px;
+  border-radius: 999px;
+}
+
+li > a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-size: 16px;
+}
+
+li:hover {
+  background-color: var(--primary-color);
+  cursor: pointer;
+}
+
+li:hover > a {
+  color: #f5f8fa;
+}
+
+.tweet_volume {
+  font-size: 12px;
+  background-color: var(--primary-color);
+  color: #f5f8fa;
+  border-radius: 999px;
+  padding: 2px 4px;
+  margin-left: 4px;
+  font-weight: bold;
+}
+
+li:hover .tweet_volume {
+  color: var(--primary-color);
+  background-color: #f5f8fa;
+}
+
+.logo {
+  margin: 0 16px;
+  width: 44px;
+}
+
+.menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.location {
+  background-color: #f5f8fa;
+  padding: 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  height: 16px;
+  width: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.location:hover {
+  background-color: #e5e8e8;
+}
+
+.content {
+  max-width: 960px;
+  margin: auto;
+}
