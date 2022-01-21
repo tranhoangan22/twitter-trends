@@ -9,13 +9,11 @@ const App = () => {
   const [woeid, setWoeid] = useState("1");
 
   useEffect(() => {
-    console.log("new woeid: ", woeid);
     getTrends();
   }, [woeid]);
 
   // make API call to our backend
   const getTrends = () => {
-    console.log("attempting to get trends");
     axios
       .get("/api/trends", {
         params: {
@@ -23,9 +21,7 @@ const App = () => {
         },
       }) // request will be proxy-ed to the server on port 4000 (defined in package.json)
       .then((response) => {
-        // console.log(response.data);
-        // setTrends(response.data);
-        console.log(response.data[0].trends);
+        // console.log(response.data[0].trends);
         setTrends(response.data[0].trends);
       })
       .catch((error) => console.log(error.message));
@@ -85,6 +81,7 @@ const App = () => {
           <option value="1">Worldwide</option>
           <option value="23424829">Germany</option>
           <option value="23424977">United States</option>
+          <option value="23424975">United Kingdom</option>
         </select>
         <div className="location" onClick={handleLocation}>
           <FaCrosshairs />

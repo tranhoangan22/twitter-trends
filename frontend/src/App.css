@@ -16,7 +16,6 @@
 .App-header {
   background-color: #14171a;
   display: flex;
-  /* flex-direction: column; */
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
@@ -83,6 +82,7 @@ li:hover > a {
   font-weight: bold;
 }
 
+/* When hovering on the li, select the children elements tweet_volumn */
 li:hover .tweet_volume {
   color: var(--primary-color);
   background-color: #f5f8fa;
@@ -115,7 +115,39 @@ li:hover .tweet_volume {
   background-color: #e5e8e8;
 }
 
+ul {
+  padding-inline-start: 0;
+}
+
 .content {
-  max-width: 960px;
+  width: 950px;
   margin: auto;
+}
+
+@media (max-width: 768px) {
+  .content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+  }
+
+  .content > ul {
+    max-width: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .li {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  li > a {
+    font-size: 20px;
+  }
 }
