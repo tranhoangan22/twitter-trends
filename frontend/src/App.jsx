@@ -28,6 +28,22 @@ const App = () => {
       .catch((error) => console.log(error.message));
   };
 
+  // returns unordered list from the obtained array `trends`
+  const listTrends = (trends) => {
+    return trends ? (
+      <ul>
+        {trends.map((trend, index) => (
+          <li key={index}>
+            <a href={trend.url}>{trend.name}</a>
+            {trend.tweet_volume && (
+              <span className="tweet_volume">{trend.tweet_volume}</span>
+            )}
+          </li>
+        ))}
+      </ul>
+    ) : null;
+  };
+
   const handleLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -49,21 +65,6 @@ const App = () => {
     } else {
       alert("location not supported");
     }
-  };
-
-  const listTrends = (trends) => {
-    return (
-      <ul>
-        {trends.map((trend, index) => (
-          <li key={index}>
-            <a href={trend.url}>{trend.name}</a>
-            {trend.tweet_volume && (
-              <span className="tweet_volume">{trend.tweet_volume}</span>
-            )}
-          </li>
-        ))}
-      </ul>
-    );
   };
 
   return (
