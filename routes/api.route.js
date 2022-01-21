@@ -13,15 +13,13 @@ const client = new Twitter({
 router.get("/trends", async (req, res, next) => {
   const id = req.query.woeid;
 
-  console.log(id);
-
   try {
     // https://developer.twitter.com/en/docs/twitter-api/v1/trends/trends-for-location/api-reference/get-trends-place
     const trends = await client.get("trends/place.json", {
       id,
     });
 
-    res.send(trends);
+    res.send("hello");
   } catch (error) {
     next(error); // app.js already handles the error
   }
