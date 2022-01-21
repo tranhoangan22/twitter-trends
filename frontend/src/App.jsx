@@ -7,6 +7,7 @@ import axios from "axios";
 const App = () => {
   const [trends, setTrends] = useState([]);
   const [woeid, setWoeid] = useState("1");
+  const [nearbyPlace, setNearbyPlace] = useState("");
 
   useEffect(() => {
     getTrends();
@@ -21,7 +22,6 @@ const App = () => {
         },
       }) // request will be proxy-ed to the server on port 4000 (defined in package.json)
       .then((response) => {
-        // console.log(response.data[0].trends);
         setTrends(response.data[0].trends);
       })
       .catch((error) => console.log(error.message));
@@ -33,7 +33,9 @@ const App = () => {
       <ul>
         {trends.map((trend, index) => (
           <li key={index}>
-            <a href={trend.url}>{trend.name}</a>
+            <a href={trend.url} target="_blank">
+              {trend.name}
+            </a>
             {trend.tweet_volume && (
               <span className="tweet_volume">{trend.tweet_volume}</span>
             )}
@@ -55,6 +57,7 @@ const App = () => {
               },
             })
             .then((response) => {
+              setNearbyPlace(response.data[0].name);
               setWoeid(response.data[0].woeid);
             })
             .catch((error) => console.log(error.message));
@@ -76,7 +79,10 @@ const App = () => {
         <select
           name="trending-place"
           id=""
-          onChange={(event) => setWoeid(event.target.value)} // as soon as `woeid` changes, the function inside useEffect gets fired and then `trends` will be updated => UI is populated with corresponding trends
+          onChange={(event) => {
+            setNearbyPlace(""); // when we select a place in dropdown we should not have the current place displayed
+            setWoeid(event.target.value);
+          }} // as soon as `woeid` changes, the function inside useEffect gets fired and then `trends` will be updated => UI is populated with corresponding trends
         >
           <option value="1">Worldwide</option>
           <option value="23424829">Germany</option>
@@ -85,6 +91,11 @@ const App = () => {
         </select>
         <div className="location" onClick={handleLocation}>
           <FaCrosshairs />
+        </div>
+        <div>
+          {nearbyPlace && (
+            <p style={{ fontSize: "16px" }}>Latest trends near {nearbyPlace}</p>
+          )}
         </div>
       </div>
       <div className="content">{listTrends(trends)}</div>

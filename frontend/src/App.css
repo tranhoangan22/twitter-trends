@@ -40,7 +40,7 @@
 }
 
 select {
-  margin: 16px;
+  margin: 16px 0;
   padding: 8px;
   font-size: 16px;
   border-radius: 999px;
@@ -95,7 +95,9 @@ li:hover .tweet_volume {
 
 .menu {
   display: flex;
+  flex-direction: row;
   justify-content: center;
+  gap: 10px;
   align-items: center;
 }
 
