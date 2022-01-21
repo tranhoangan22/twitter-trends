@@ -28,6 +28,8 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
+app.use("/api", require("./routes/api.route"));
+
 // Serving static files in Express, in Production
 if (process.env.NODE_ENV === "production") {
   app.use(compression());
@@ -51,8 +53,6 @@ if (process.env.NODE_ENV === "production") {
 app.get("/service-worker.js", (req, res) => {
   res.sendFile(path.resolve(__dirname, "..", "build", "service-worker.js"));
 });
-
-app.use("/api", require("./routes/api.route"));
 
 app.use((req, res, next) => {
   next(createError.NotFound());
