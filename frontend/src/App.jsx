@@ -8,7 +8,10 @@ const App = () => {
   const [trends, setTrends] = useState([]);
   const [woeid, setWoeid] = useState("1");
 
-  useEffect(() => getTrends(), [woeid]);
+  useEffect(() => {
+    console.log("new woeid: ", woeid);
+    getTrends();
+  }, [woeid]);
 
   // make API call to our backend
   const getTrends = () => {
