@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const { response } = require("express");
 const Twitter = require("twitter");
 
 // initialize a new twitter client
@@ -13,6 +12,8 @@ const client = new Twitter({
 // get trending topics for a particular place
 router.get("/trends", async (req, res, next) => {
   const id = req.query.woeid;
+
+  console.log(id);
 
   try {
     // https://developer.twitter.com/en/docs/twitter-api/v1/trends/trends-for-location/api-reference/get-trends-place
