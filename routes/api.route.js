@@ -15,9 +15,9 @@ router.get("/trends", async (req, res, next) => {
 
   try {
     // https://developer.twitter.com/en/docs/twitter-api/v1/trends/trends-for-location/api-reference/get-trends-place
-    const trends = await client.get("trends/place.json", {
-      id,
-    });
+    // const trends = await client.get("trends/place.json", {
+    //   id,
+    // });
 
     res.send("hello");
   } catch (error) {
