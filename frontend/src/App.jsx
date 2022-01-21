@@ -23,7 +23,7 @@ const App = () => {
         },
       }) // request will be proxy-ed to the server on port 4000 (defined in package.json)
       .then((response) => {
-        // console.log(response.data[0].trends);
+        console.log(response.data[0].trends);
         setTrends(response.data[0].trends);
       })
       .catch((error) => console.log(error.message));
