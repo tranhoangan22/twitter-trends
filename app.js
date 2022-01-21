@@ -28,6 +28,7 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
+// this line has to be above the codes where we serve static files and send frontend codes when user make request in production
 app.use("/api", require("./routes/api.route"));
 
 // Serving static files in Express, in Production
@@ -67,5 +68,4 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 4000;
-
 app.listen(PORT, () => console.log("Server started on port ", PORT));

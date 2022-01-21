@@ -23,29 +23,28 @@ const App = () => {
         },
       }) // request will be proxy-ed to the server on port 4000 (defined in package.json)
       .then((response) => {
-        console.log(response.data);
-        setTrends(response.data);
-        // console.log(response.data[0].trends);
-        // setTrends(response.data[0].trends);
+        // console.log(response.data);
+        // setTrends(response.data);
+        console.log(response.data[0].trends);
+        setTrends(response.data[0].trends);
       })
       .catch((error) => console.log(error.message));
   };
 
   // returns unordered list from the obtained array `trends`
   const listTrends = (trends) => {
-    return trends;
-    // return trends ? (
-    //   <ul>
-    //     {trends.map((trend, index) => (
-    //       <li key={index}>
-    //         <a href={trend.url}>{trend.name}</a>
-    //         {trend.tweet_volume && (
-    //           <span className="tweet_volume">{trend.tweet_volume}</span>
-    //         )}
-    //       </li>
-    //     ))}
-    //   </ul>
-    // ) : null;
+    return trends ? (
+      <ul>
+        {trends.map((trend, index) => (
+          <li key={index}>
+            <a href={trend.url}>{trend.name}</a>
+            {trend.tweet_volume && (
+              <span className="tweet_volume">{trend.tweet_volume}</span>
+            )}
+          </li>
+        ))}
+      </ul>
+    ) : null;
   };
 
   const handleLocation = () => {
