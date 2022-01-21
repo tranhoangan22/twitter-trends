@@ -15,6 +15,7 @@ const App = () => {
 
   // make API call to our backend
   const getTrends = () => {
+    console.log("attempting to get trends");
     axios
       .get("/api/trends", {
         params: {
