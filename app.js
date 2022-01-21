@@ -17,6 +17,9 @@ app.use(morgan("dev"));
 //   res.send({ message: "Awesome it works 🐻" });
 // });
 
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => console.log("Server started on port ", PORT));
+
 /**
  * So our API call from the client side (port 3000) can be proxy-ed to backend (defined in this app.js file)
  * Another way to do this is to define the proxy property in package.json => what we're doing
@@ -27,25 +30,6 @@ const corsOptions = {
   optionSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
-
-// Serving static files in Express, in Production
-if (process.env.NODE_ENV === "production") {
-  app.use(compression());
-
-  app.use(
-    enforce.HTTPS({
-      trustProtoHeader: true,
-    })
-  );
-
-  // if we're in production, we want to be able to serve all static files (which run on browswer side) in our /build folder. `/build` is what gets built when we run the build script in package.json
-  app.use(express.static(path.join(__dirname, "frontend/build")));
-
-  // if client hits any route, backend will send over the index.html in our build (which holds all of our frontend codes!)
-  app.get("*", function (req, res) {
-    res.sendFile(path.join(__dirname, "frontend/build", "index.html"));
-  });
-}
 
 // Whenever an app tries to load a service worker, it will be looking for a service-worker.js file
 app.get("/service-worker.js", (req, res) => {
@@ -66,6 +50,21 @@ app.use((err, req, res, next) => {
   });
 });
 
-const PORT = process.env.PORT || 4000;
+// Serving static files in Express, in Production
+if (process.env.NODE_ENV === "production") {
+  app.use(compression());
 
-app.listen(PORT, () => console.log("Server started on port ", PORT));
+  app.use(
+    enforce.HTTPS({
+      trustProtoHeader: true,
+    })
+  );
+
+  // if we're in production, we want to be able to serve all static files (which run on browswer side) in our /build folder. `/build` is what gets built when we run the build script in package.json
+  app.use(express.static(path.join(__dirname, "frontend/build")));
+
+  // if client hits any route, backend will send over the index.html in our build (which holds all of our frontend codes!)
+  app.get("*", function (req, res) {
+    res.sendFile(path.join(__dirname, "frontend/build", "index.html"));
+  });
+}
