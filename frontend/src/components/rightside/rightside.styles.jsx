@@ -3,6 +3,10 @@ import styled from "styled-components";
 export const RightSideContainer = styled.div`
   grid-area: rightside;
   border-left: 1px solid rgba(0, 0, 0, 0.08);
+
+  @media (max-width: 768px) {
+    border-left: none;
+  }
 `;
 
 export const MenuContainer = styled.div`
