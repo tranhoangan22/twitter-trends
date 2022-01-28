@@ -17,7 +17,7 @@ export const SearchBarContainer = styled.div`
   padding: 15px 0;
 `;
 
-export const tweetcollectionscontainer = styled.div`
+export const TweetCollectionsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -26,7 +26,7 @@ export const tweetcollectionscontainer = styled.div`
 `;
 
 // // https://tobiasahlin.com/blog/masonry-with-css/
-// export const tweetcollectionscontainer = styled.div`
+// export const TweetCollectionsContainer = styled.div`
 //   /* Render items as columns */
 //   width: 90%;
 //   display: flex;
