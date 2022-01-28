@@ -1,0 +1,117 @@
+import React from "react";
+import "./rightside.css";
+import { FaCrosshairs } from "react-icons/fa";
+import { useState, useEffect } from "react";
+import axios from "axios";
+
+import {
+  RightSideContainer,
+  MenuContainer,
+  ContentContainer,
+  SelectContainer,
+} from "./rightside.styles";
+
+const RightSide = () => {
+  const [trends, setTrends] = useState([]);
+  const [woeid, setWoeid] = useState("1");
+  const [nearbyPlace, setNearbyPlace] = useState("");
+
+  useEffect(() => {
+    getTrends();
+  }, [woeid]);
+
+  // make API call to our backend
+  const getTrends = () => {
+    axios
+      .get("/api/trends", {
+        params: {
+          woeid,
+        },
+      }) // request will be proxy-ed to the server on port 4000 (defined in package.json)
+      .then((response) => {
+        setTrends(response.data[0].trends);
+      })
+      .catch((error) => console.log(error.message));
+  };
+
+  // returns unordered list from the obtained array `trends`
+  const listTrends = (trends) => {
+    return trends ? (
+      <ul>
+        {trends.map((trend, index) => (
+          <li key={index}>
+            <a href={trend.url} target="_blank">
+              {trend.name}
+            </a>
+            {trend.tweet_volume && (
+              <span className="tweet_volume">{trend.tweet_volume}</span>
+            )}
+          </li>
+        ))}
+      </ul>
+    ) : null;
+  };
+
+  const handleLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          axios
+            .get("/api/near-me", {
+              params: {
+                lat: position.coords.latitude,
+                long: position.coords.longitude,
+              },
+            })
+            .then((response) => {
+              setNearbyPlace(response.data[0].name);
+              setWoeid(response.data[0].woeid);
+            })
+            .catch((error) => console.log(error.message));
+        },
+        (error) => console.log(error)
+      );
+    } else {
+      alert("location not supported");
+    }
+  };
+
+  return (
+    <RightSideContainer>
+      <div className="App">
+        {/* <header className="App-header">
+        <img src={logo} className="logo" alt="twitter" />
+        <h3>Twitter Trends</h3>
+      </header> */}
+        <MenuContainer>
+          <SelectContainer
+            name="trending-place"
+            id=""
+            onChange={(event) => {
+              setNearbyPlace(""); // when we select a place in dropdown we should not have the current place displayed
+              setWoeid(event.target.value);
+            }} // as soon as `woeid` changes, the function inside useEffect gets fired and then `trends` will be updated => UI is populated with corresponding trends
+          >
+            <option value="1">Worldwide</option>
+            <option value="23424829">Germany</option>
+            <option value="23424977">United States</option>
+            <option value="23424975">United Kingdom</option>
+          </SelectContainer>
+          <div className="location" onClick={handleLocation}>
+            <FaCrosshairs />
+          </div>
+          <div>
+            {nearbyPlace && (
+              <p style={{ fontSize: "16px" }}>
+                Latest trends near {nearbyPlace}
+              </p>
+            )}
+          </div>
+        </MenuContainer>
+        <ContentContainer>{listTrends(trends)}</ContentContainer>
+      </div>
+    </RightSideContainer>
+  );
+};
+
+export default RightSide;

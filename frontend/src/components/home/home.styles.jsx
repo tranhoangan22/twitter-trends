@@ -1,0 +1,31 @@
+import styled from "styled-components";
+
+export const HomeContainer = styled.div`
+  padding-right: 20px;
+  padding-left: 20px;
+  max-width: 100%;
+
+  @media (max-width: 768px) {
+    padding-top: 10px;
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+`;
+
+export const LayoutContainer = styled.div`
+  display: grid;
+  grid-template-areas: "leftside rightside"; // divide into 3 areas with specific names which can be referenced
+  grid-template-columns: 4fr 1fr;
+  /* grid-template-columns: repeat(2, minmax(0, 1fr)); */
+  column-gap: 5px;
+  row-gap: 25px;
+  /* grid-template-rows: auto; */
+  margin: 5px 0;
+
+  @media (max-width: 768px) {
+    margin: 25px 0;
+    display: flex;
+    flex-direction: column;
+    padding: 0 5px;
+  }
+`;
