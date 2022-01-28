@@ -42,6 +42,23 @@ router.get("/near-me", async (req, res, next) => {
   }
 });
 
+router.get("/tweets", async (req, res, next) => {
+  const searchKey = req.query.searchKey;
+
+  try {
+    const searchResults = await client.get("search/tweets.json", {
+      q: searchKey,
+      count: 20,
+      lang: "en",
+      result_type: "recent",
+    });
+
+    res.send(searchResults);
+  } catch (error) {
+    next(error); // app.js already handles the error
+  }
+});
+
 module.exports = router;
 
 /*
