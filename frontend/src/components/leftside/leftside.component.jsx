@@ -45,11 +45,13 @@ const LeftSide = () => {
               ),
             ]);
           } else {
-            setIds(
-              response.data.statuses
-                .filter((status) => status.metadata.result_type === "recent")
-                .map((status) => status.id_str)
-            );
+            setIds([
+              ...new Set(
+                response.data.statuses
+                  .filter((status) => status.metadata.result_type === "recent")
+                  .map((status) => status.id_str)
+              ),
+            ]);
           }
 
           setIsFetchingData(false);
