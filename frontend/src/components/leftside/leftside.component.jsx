@@ -18,7 +18,8 @@ const LeftSide = () => {
     setSearchKey(event.target.value);
   };
 
-  const handleClick = () => {
+  const handleClick = (event) => {
+    const resultType = event.target.name;
     if (!searchKey) {
       alert("Enter a search key");
     } else {
@@ -27,10 +28,31 @@ const LeftSide = () => {
         .get("/api/tweets", {
           params: {
             searchKey,
+            resultType,
           },
         }) // request will be proxy-ed to the server on port 4000 (defined in package.json)
         .then((response) => {
-          setIds(response.data.statuses.map((status) => status.id_str));
+          console.log(response.data.statuses);
+          if (resultType === "popular") {
+            setIds([
+              ...new Set( // remove duplicates in an array: https://dev.to/soyleninjs/3-ways-to-remove-duplicates-in-an-array-in-javascript-259o
+                response.data.statuses
+                  .filter(
+                    (status) =>
+                      status.metadata.result_type === "popular" ||
+                      status.user.followers_count > 10000
+                  )
+                  .map((status) => status.id_str)
+              ),
+            ]);
+          } else {
+            setIds(
+              response.data.statuses
+                .filter((status) => status.metadata.result_type === "recent")
+                .map((status) => status.id_str)
+            );
+          }
+
           setIsFetchingData(false);
         })
         .catch((error) => console.log("there is an error: ", error.message));
@@ -52,8 +74,11 @@ const LeftSide = () => {
           value={searchKey}
           onChange={handleTextFieldChange}
         />
-        <Button variant="contained" onClick={handleClick}>
-          Search
+        <Button name="recent" variant="contained" onClick={handleClick}>
+          Search recent
+        </Button>
+        <Button name="popular" variant="contained" onClick={handleClick}>
+          Search popular
         </Button>
       </SearchBarContainer>
       {isFetchingData ? (

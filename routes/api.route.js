@@ -44,13 +44,13 @@ router.get("/near-me", async (req, res, next) => {
 
 router.get("/tweets", async (req, res, next) => {
   const searchKey = req.query.searchKey;
-
+  const resultType = req.query.resultType;
   try {
     const searchResults = await client.get("search/tweets.json", {
       q: searchKey,
-      count: 20,
+      count: resultType === "popular" ? 100 : 20,
       lang: "en",
-      result_type: "recent",
+      result_type: "mixed",
     });
 
     res.send(searchResults);
