@@ -32,7 +32,6 @@ const LeftSide = () => {
           },
         }) // request will be proxy-ed to the server on port 4000 (defined in package.json)
         .then((response) => {
-          console.log(response.data.statuses);
           if (resultType === "popular") {
             setIds([
               ...new Set( // remove duplicates in an array: https://dev.to/soyleninjs/3-ways-to-remove-duplicates-in-an-array-in-javascript-259o
