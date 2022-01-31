@@ -42,12 +42,11 @@ export const PageSelectionContainer = styled.div`
   width: 14%;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   font-size: 20px;
   height: 56px;
-  border-radius: 28px;
-  margin-right: 16px;
+  margin-right: 35px;
 
   &:hover {
     cursor: pointer;
@@ -57,6 +56,7 @@ export const PageSelectionContainer = styled.div`
     /* padding-right: 10px; */
     /* align-items: flex-end; */
     width: 40%;
+    margin-right: 15px;
   }
 `;
 
@@ -73,6 +73,12 @@ export const SearchTweetsTextContainer = styled.div`
   margin: 0;
   color: #1da1f2;
   font-size: 20px;
+
+  &:hover,
+  :active {
+    color: #0a66c2;
+    cursor: pointer;
+  }
 
   @media (max-width: 768px) {
     font-size: 15px;
