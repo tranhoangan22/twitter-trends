@@ -1,15 +1,18 @@
 import React from "react";
-import RightSide from "../rightside/rightside.component";
-import LeftSide from "../leftside/leftside.component";
+import { useSelector } from "react-redux";
+
+import TrendsSection from "../trends-section/trends-section.component";
+import SearchSection from "../search-section/search-section.component";
 
 import { HomeContainer, LayoutContainer } from "./home.styles";
 
 const Home = () => {
+  const showSearch = useSelector((state) => state.searchState.showSearch);
   return (
     <HomeContainer>
-      <LayoutContainer>
-        <LeftSide />
-        <RightSide />
+      <LayoutContainer showSearch={showSearch}>
+        {showSearch && <SearchSection />}
+        <TrendsSection showSearch={showSearch} />
       </LayoutContainer>
     </HomeContainer>
   );

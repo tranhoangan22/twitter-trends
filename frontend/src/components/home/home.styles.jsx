@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const HomeContainer = styled.div`
   padding-right: 20px;
@@ -12,14 +12,24 @@ export const HomeContainer = styled.div`
   }
 `;
 
-export const LayoutContainer = styled.div`
+const gridStyles = css`
   display: grid;
-  grid-template-areas: "leftside rightside"; // divide into 3 areas with specific names which can be referenced
-  grid-template-columns: 4fr 1fr;
-  /* grid-template-columns: repeat(2, minmax(0, 1fr)); */
+  grid-template-areas: "trendsection searchsection"; // divide into 3 areas with specific names which can be referenced
+  grid-template-columns: 1fr 4fr;
   column-gap: 5px;
   row-gap: 25px;
-  /* grid-template-rows: auto; */
+`;
+
+const getLayoutStyles = (props) => {
+  if (props.showSearch) {
+    return gridStyles;
+  }
+  return "";
+};
+
+export const LayoutContainer = styled.div`
+  ${getLayoutStyles}
+
   margin: 5px 0;
 
   @media (max-width: 768px) {

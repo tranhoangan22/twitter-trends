@@ -3,13 +3,13 @@ import {
   LeftSideContainer,
   SearchBarContainer,
   TweetCollectionsContainer,
-} from "./leftside.styles";
+} from "./search-section.styles";
 import { TextField, Button, CircularProgress } from "@mui/material";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { TwitterTweetEmbed } from "react-twitter-embed";
 
-const LeftSide = () => {
+const SearchSection = () => {
   const [searchKey, setSearchKey] = useState("");
   const [ids, setIds] = useState("");
   const [isFetchingData, setIsFetchingData] = useState(false);
@@ -93,4 +93,4 @@ const LeftSide = () => {
   );
 };
 
-export default LeftSide;
+export default SearchSection;

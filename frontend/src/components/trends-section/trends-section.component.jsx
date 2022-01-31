@@ -1,17 +1,21 @@
 import React from "react";
-import "./rightside.css";
+import "./trends-section.css";
 import { FaCrosshairs } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
 import {
-  RightSideContainer,
+  TrendsSectionContainer,
   MenuContainer,
   ContentContainer,
   SelectContainer,
-} from "./rightside.styles";
+  NearByContainer,
+  NearByPlaceContainer,
+  LocationSelectionContainer,
+  CrossHairContainer,
+} from "./trends-section.styles";
 
-const RightSide = () => {
+const TrendsSection = ({ showSearch }) => {
   const [trends, setTrends] = useState([]);
   const [woeid, setWoeid] = useState("1");
   const [nearbyPlace, setNearbyPlace] = useState("");
@@ -77,41 +81,41 @@ const RightSide = () => {
   };
 
   return (
-    <RightSideContainer>
+    <TrendsSectionContainer showSearch={showSearch}>
       <div className="App">
-        {/* <header className="App-header">
-        <img src={logo} className="logo" alt="twitter" />
-        <h3>Twitter Trends</h3>
-      </header> */}
         <MenuContainer>
-          <SelectContainer
-            name="trending-place"
-            id=""
-            onChange={(event) => {
-              setNearbyPlace(""); // when we select a place in dropdown we should not have the current place displayed
-              setWoeid(event.target.value);
-            }} // as soon as `woeid` changes, the function inside useEffect gets fired and then `trends` will be updated => UI is populated with corresponding trends
-          >
-            <option value="1">Worldwide</option>
-            <option value="23424829">Germany</option>
-            <option value="23424977">United States</option>
-            <option value="23424975">United Kingdom</option>
-          </SelectContainer>
-          <div className="location" onClick={handleLocation}>
-            <FaCrosshairs />
-          </div>
-          <div>
+          <LocationSelectionContainer>
+            <SelectContainer
+              name="trending-place"
+              id=""
+              onChange={(event) => {
+                setNearbyPlace(""); // when we select a place in dropdown we should not have the current place displayed
+                setWoeid(event.target.value);
+              }} // as soon as `woeid` changes, the function inside useEffect gets fired and then `trends` will be updated => UI is populated with corresponding trends
+            >
+              <option value="1">Worldwide</option>
+              <option value="23424829">Germany</option>
+              <option value="23424977">United States</option>
+              <option value="23424975">United Kingdom</option>
+            </SelectContainer>
+            <CrossHairContainer onClick={handleLocation}>
+              <FaCrosshairs />
+            </CrossHairContainer>
+          </LocationSelectionContainer>
+          <NearByContainer>
             {nearbyPlace && (
-              <p style={{ fontSize: "16px" }}>
+              <NearByPlaceContainer>
                 Latest trends near {nearbyPlace}
-              </p>
+              </NearByPlaceContainer>
             )}
-          </div>
+          </NearByContainer>
         </MenuContainer>
-        <ContentContainer>{listTrends(trends)}</ContentContainer>
+        <ContentContainer showSearch={showSearch}>
+          {listTrends(trends)}
+        </ContentContainer>
       </div>
-    </RightSideContainer>
+    </TrendsSectionContainer>
   );
 };
 
-export default RightSide;
+export default TrendsSection;

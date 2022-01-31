@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const LeftSideContainer = styled.div`
-  grid-area: leftside;
+  grid-area: searchsection;
   display: flex;
   flex-direction: column;
   align-items: center;
