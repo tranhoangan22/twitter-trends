@@ -14,6 +14,7 @@ const SearchSection = () => {
   const [ids, setIds] = useState("");
   const [isFetchingData, setIsFetchingData] = useState(false);
 
+  console.log(ids);
   const handleTextFieldChange = (event) => {
     setSearchKey(event.target.value);
   };
@@ -34,7 +35,7 @@ const SearchSection = () => {
         .then((response) => {
           if (resultType === "popular") {
             setIds([
-              ...new Set( // remove duplicates in an array: https://dev.to/soyleninjs/3-ways-to-remove-duplicates-in-an-array-in-javascript-259o
+              ...new Set(
                 response.data.statuses
                   .filter(
                     (status) =>

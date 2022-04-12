@@ -1,7 +1,7 @@
 import React from "react";
 import "./trends-section.css";
 import { FaCrosshairs } from "react-icons/fa";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 
 import {
@@ -20,12 +20,8 @@ const TrendsSection = ({ showSearch }) => {
   const [woeid, setWoeid] = useState("1");
   const [nearbyPlace, setNearbyPlace] = useState("");
 
-  useEffect(() => {
-    getTrends();
-  }, [woeid]);
-
   // make API call to our backend
-  const getTrends = () => {
+  const getTrends = useCallback(() => {
     axios
       .get("/api/trends", {
         params: {
@@ -36,7 +32,7 @@ const TrendsSection = ({ showSearch }) => {
         setTrends(response.data[0].trends);
       })
       .catch((error) => console.log(error.message));
-  };
+  }, [woeid]);
 
   // returns unordered list from the obtained array `trends`
   const listTrends = (trends) => {
@@ -44,7 +40,7 @@ const TrendsSection = ({ showSearch }) => {
       <ul>
         {trends.map((trend, index) => (
           <li key={index}>
-            <a href={trend.url} target="_blank">
+            <a href={trend.url} target="_blank" rel="noreferrer">
               {trend.name}
             </a>
             {trend.tweet_volume && (
@@ -55,6 +51,10 @@ const TrendsSection = ({ showSearch }) => {
       </ul>
     ) : null;
   };
+
+  useEffect(() => {
+    getTrends();
+  }, [woeid, getTrends]);
 
   const handleLocation = () => {
     if (navigator.geolocation) {
